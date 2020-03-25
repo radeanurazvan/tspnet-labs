@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -37,5 +38,10 @@ namespace Lab6.Data.Repositories
         {
             context?.Dispose();
         }
+    }
+
+    internal static class MissingDllHack
+    {
+        private static SqlProviderServices instance = SqlProviderServices.Instance;
     }
 }

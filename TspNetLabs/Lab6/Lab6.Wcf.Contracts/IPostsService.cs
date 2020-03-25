@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace Lab6.Wcf.Contracts
@@ -6,6 +7,9 @@ namespace Lab6.Wcf.Contracts
     [ServiceContract]
     public interface IPostsService
     {
+        [OperationContract]
+        IEnumerable<PostDto> GetPosts();
+
         [OperationContract]
         void AddPost(PostDto postDto);
 

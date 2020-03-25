@@ -8,7 +8,7 @@ namespace Lab6.Data
         {
             return new Post
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 Domain = domain,
                 Description = description,
                 Date = DateTime.Now

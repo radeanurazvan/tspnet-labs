@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Lab6.Data;
 using Lab6.Data.Repositories;
 
@@ -35,6 +37,15 @@ namespace Lab6.Wcf.Contracts
         {
             commentRepository.Delete(commentId);
             commentRepository.SaveChanges();
+        }
+
+        public IEnumerable<PostDto> GetPosts()
+        {
+            return postRepository.GetAll().Select(p => new PostDto
+            {
+                Description = p.Description,
+                Domain = p.Domain
+            });
         }
 
         public void AddPost(PostDto postDto)
