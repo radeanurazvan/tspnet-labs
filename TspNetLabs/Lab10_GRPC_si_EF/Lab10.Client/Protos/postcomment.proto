@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "Lab10.Service";
+
+package greet;
+
+service PostComment {
+  rpc AddPost (AddPostRequest) returns (Empty);
+  rpc GetPosts (Empty) returns (PostsResponse);
+}
+
+message AddPostRequest {
+  string title = 1;
+  string content = 2;
+}
+
+message Empty {
+}
+
+message PostDto {
+	string title = 1;
+	string content = 2;
+}
+
+message PostsResponse {
+  repeated PostDto posts = 1;
+}
