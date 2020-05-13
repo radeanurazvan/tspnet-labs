@@ -11,8 +11,7 @@ namespace Lab6.Data.Repositories
 
         protected override IQueryable<Comment> DecorateEntities(IQueryable<Comment> entities)
         {
-            return entities.Include(c => c.Parent)
-                .Include(c => c.Comments);
+            return entities.Include(c => c.Post);
         }
     }
 }

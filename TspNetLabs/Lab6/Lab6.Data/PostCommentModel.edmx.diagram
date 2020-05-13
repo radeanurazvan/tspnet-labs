@@ -7,7 +7,6 @@
       <Diagram DiagramId="cd8b23b2dac44a70ab4a9c5553203eaa" Name="Diagram1" >
         <EntityTypeShape EntityType="PostCommentModel.Post" Width="1.5" PointX="7" PointY="2" />
         <EntityTypeShape EntityType="PostCommentModel.Comment" Width="1.5" PointX="10.375" PointY="2" />
-        <AssociationConnector Association="PostCommentModel.CommentComment" />
         <AssociationConnector Association="PostCommentModel.PostComment" />
       </Diagram>
     </edmx:Diagrams>

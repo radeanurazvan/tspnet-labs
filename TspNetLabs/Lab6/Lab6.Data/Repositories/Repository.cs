@@ -9,7 +9,7 @@ namespace Lab6.Data.Repositories
     public class Repository<T> : IRepository<T>, IDisposable
         where T : class, IEntity
     {
-        private readonly PostCommentModelContainer context;
+        protected readonly PostCommentModelContainer context;
 
         public Repository(PostCommentModelContainer context)
         {
@@ -25,7 +25,7 @@ namespace Lab6.Data.Repositories
 
         public void Add(T entity) => context.Set<T>().Add(entity);
         
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
             context.Set<T>().Remove(GetById(id));
         }

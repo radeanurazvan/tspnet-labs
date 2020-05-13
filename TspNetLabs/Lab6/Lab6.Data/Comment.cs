@@ -14,20 +14,10 @@ namespace Lab6.Data
     
     public partial class Comment
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Comment()
-        {
-            this.Comments = new HashSet<Comment>();
-        }
-    
         public System.Guid Id { get; private set; }
         public string Text { get; private set; }
-        public System.Guid ParentId { get; private set; }
         public System.Guid PostId { get; private set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; private set; }
-        public virtual Comment Parent { get; private set; }
         public virtual Post Post { get; set; }
     }
 }

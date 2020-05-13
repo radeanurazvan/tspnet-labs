@@ -20,17 +20,9 @@ namespace Lab6.Wcf.Contracts
         public void AddPostComment(Guid postId, CommentDto commentDto)
         {
             var post = postRepository.GetById(postId);
-            post?.AddComment(Comment.Create(commentDto.Text));
+            post?.AddComment(Comment.Create(post, commentDto.Text));
 
             postRepository.SaveChanges();
-        }
-
-        public void AddCommentComment(Guid commentId, CommentDto commentDto)
-        {
-            var comment = commentRepository.GetById(commentId);
-            comment?.AddComment(Comment.Create(commentDto.Text));
-
-            commentRepository.SaveChanges();
         }
 
         public void DeleteComment(Guid commentId)
@@ -43,8 +35,13 @@ namespace Lab6.Wcf.Contracts
         {
             return postRepository.GetAll().Select(p => new PostDto
             {
+                Id = p.Id,
                 Description = p.Description,
-                Domain = p.Domain
+                Domain = p.Domain,
+                Comments = p.Comments.Select(c => new CommentDto
+                {
+                    Text = c.Text
+                })
             });
         }
 

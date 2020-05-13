@@ -8,10 +8,6 @@
   <EntityContainer Name="PostCommentModelStoreContainer">
     <EntitySet Name="Posts" EntityType="PostCommentModel.Store.Posts" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Comments" EntityType="PostCommentModel.Store.Comments" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="CommentComment" Association="PostCommentModel.Store.CommentComment">
-      <End Role="Comment" EntitySet="Comments" />
-      <End Role="Comment1" EntitySet="Comments" />
-    </AssociationSet>
     <AssociationSet Name="PostComment" Association="PostCommentModel.Store.PostComment">
       <End Role="Post" EntitySet="Posts" />
       <End Role="Comment" EntitySet="Comments" />
@@ -32,21 +28,8 @@
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ParentId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="PostId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
-  <Association Name="CommentComment">
-    <End Role="Comment" Type="PostCommentModel.Store.Comments" Multiplicity="1" />
-    <End Role="Comment1" Type="PostCommentModel.Store.Comments" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Comment">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Comment1">
-        <PropertyRef Name="ParentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="PostComment">
     <End Role="Post" Type="PostCommentModel.Store.Posts" Multiplicity="1" />
     <End Role="Comment" Type="PostCommentModel.Store.Comments" Multiplicity="*" />
@@ -66,10 +49,6 @@
         <EntityContainer Name="PostCommentModelContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Posts" EntityType="PostCommentModel.Post" />
           <EntitySet Name="Comments" EntityType="PostCommentModel.Comment" />
-          <AssociationSet Name="CommentComment" Association="PostCommentModel.CommentComment">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="Comment1" EntitySet="Comments" />
-          </AssociationSet>
           <AssociationSet Name="PostComment" Association="PostCommentModel.PostComment">
             <End Role="Post" EntitySet="Posts" />
             <End Role="Comment" EntitySet="Comments" />
@@ -91,24 +70,9 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" cg:SetterAccess="Private" />
           <Property Name="Text" Type="String" Nullable="false" cg:SetterAccess="Private" />
-          <NavigationProperty Name="Comments" Relationship="PostCommentModel.CommentComment" FromRole="Comment" ToRole="Comment1" cg:SetterAccess="Private" />
-          <NavigationProperty Name="Parent" Relationship="PostCommentModel.CommentComment" FromRole="Comment1" ToRole="Comment" cg:SetterAccess="Private" />
-          <Property Name="ParentId" Type="Guid" Nullable="false" cg:SetterAccess="Private" />
           <NavigationProperty Name="Post" Relationship="PostCommentModel.PostComment" FromRole="Comment" ToRole="Post" />
           <Property Name="PostId" Type="Guid" Nullable="false" cg:SetterAccess="Private" />
         </EntityType>
-        <Association Name="CommentComment">
-          <End Type="PostCommentModel.Comment" Role="Comment" Multiplicity="1" />
-          <End Type="PostCommentModel.Comment" Role="Comment1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comment">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comment1">
-              <PropertyRef Name="ParentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="PostComment">
           <End Type="PostCommentModel.Post" Role="Post" Multiplicity="1" />
           <End Type="PostCommentModel.Comment" Role="Comment" Multiplicity="*" />
@@ -142,7 +106,6 @@
         <MappingFragment StoreEntitySet="Comments">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Text" ColumnName="Text" />
-          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
           <ScalarProperty Name="PostId" ColumnName="PostId" />
         </MappingFragment>
       </EntityTypeMapping>
